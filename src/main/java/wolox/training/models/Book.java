@@ -8,6 +8,7 @@ public class Book {
     public Book() {}
 
     @Id
+    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
