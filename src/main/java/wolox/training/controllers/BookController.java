@@ -42,10 +42,8 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
-    public Book delete(@PathVariable Long id) throws BookNotFoundException {
-        if(bookRepository.findById(id) != null){
-            bookRepository.deleteById(id);
-        }
-        return null; // TODO: error handling
+    public void delete(@PathVariable Long id) throws BookNotFoundException {
+        bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
+        bookRepository.deleteById(id);
     }
 }
