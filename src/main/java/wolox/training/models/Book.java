@@ -116,4 +116,18 @@ public class Book {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
+
+    @Override
+    public boolean equals(Object o){
+        if(o == null)   return false;
+        if(!(o instanceof Book)) return false;
+
+        Book other = (Book) o;
+        return this.id == other.getId();
+    }
+
+    @Override
+    public int hashCode() {
+       return (int) this.id;
+    }
 }

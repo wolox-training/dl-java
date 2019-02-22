@@ -17,8 +17,7 @@ public class User {
     @Column(nullable = false)
     private LocalDate birthdate;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Collection<Book> books;
 
     public long getId() {
@@ -54,17 +53,10 @@ public class User {
     }
 
     public boolean addBook(Book newBook) {
-        if(this.books.stream().anyMatch(book -> book.getId() == newBook.getId())){
-            return false;
-        } else {
-            return this.books.add(newBook);
-        }
+        return this.books.add(newBook);
     }
 
-    public Collection<Book> deleteBook(long bookToDeleteId){
-        if(this.books.stream().anyMatch(book -> book.getId() == bookToDeleteId)){
-            this.books.removeIf(book -> book.getId() == bookToDeleteId);
-        }
-        return this.books;
+    public boolean deleteBook(long bookToDeleteId){
+        return this.books.removeIf(book -> book.getId() == bookToDeleteId);
     }
 }
