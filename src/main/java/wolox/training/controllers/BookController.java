@@ -22,8 +22,8 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Book> findById(@PathVariable Long id) {
-        return bookRepository.findById(id);
+    public Book findById(@PathVariable Long id) throws BookNotFoundException {
+        return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
     }
 
     @PostMapping
@@ -33,12 +33,9 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public Book update(@RequestBody Book book, @PathVariable Long id){
-        if(book.getId() == id && bookRepository.findById(id) != null) {
-            return bookRepository.save(book);
-        }
-
-        return null;  // TODO: error handling
+    public Book update(@RequestBody Book book, @PathVariable Long id) throws BookNotFoundException {
+        bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
+        return bookRepository.save(book);
     }
 
     @DeleteMapping("/{id}")
