@@ -35,7 +35,8 @@ public class User {
     }
 
     public void setUsername(String username) {
-        this.username = Preconditions.checkNotNull(username);
+        Preconditions.checkArgument( username != null && !username.isEmpty());
+        this.username = username;
     }
 
     public LocalDate getBirthdate() {

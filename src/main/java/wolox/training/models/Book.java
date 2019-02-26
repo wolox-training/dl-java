@@ -60,7 +60,8 @@ public class Book {
     }
 
     public void setAuthor(String author) {
-        this.author = Preconditions.checkNotNull(author);
+        Preconditions.checkArgument( author != null && !author.isEmpty());
+        this.author = author;
     }
 
     public String getImage() {
@@ -68,7 +69,8 @@ public class Book {
     }
 
     public void setImage(String image) {
-        this.image = Preconditions.checkNotNull(image);
+        Preconditions.checkArgument( image != null && !image.isEmpty());
+        this.image = image;
     }
 
     public String getTitle() {
@@ -76,7 +78,8 @@ public class Book {
     }
 
     public void setTitle(String title) {
-        this.title = Preconditions.checkNotNull(title);
+        Preconditions.checkArgument( title != null && !title.isEmpty());
+        this.title = title;
     }
 
     public String getSubtitle() {
@@ -84,7 +87,8 @@ public class Book {
     }
 
     public void setSubtitle(String subtitle) {
-        this.subtitle = Preconditions.checkNotNull(subtitle);
+        Preconditions.checkArgument( subtitle != null && !subtitle.isEmpty());
+        this.subtitle = subtitle;
     }
 
     public String getPublisher() {
@@ -92,7 +96,8 @@ public class Book {
     }
 
     public void setPublisher(String publisher) {
-        this.publisher = Preconditions.checkNotNull(publisher);
+        Preconditions.checkArgument( publisher != null && !publisher.isEmpty());
+        this.publisher = publisher;
     }
 
     public String getYear() {
@@ -100,7 +105,8 @@ public class Book {
     }
 
     public void setYear(String year) {
-        this.year = Preconditions.checkNotNull(year);
+        Preconditions.checkArgument( year != null && !year.isEmpty());
+        this.year = year;
     }
 
     public Integer getPages() {
@@ -116,7 +122,8 @@ public class Book {
     }
 
     public void setIsbn(String isbn) {
-        this.isbn = Preconditions.checkNotNull(isbn);
+        Preconditions.checkArgument( isbn != null && !isbn.isEmpty());
+        this.isbn = isbn;
     }
 
     @Override
