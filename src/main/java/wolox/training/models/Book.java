@@ -1,6 +1,9 @@
 package wolox.training.models;
 
+import com.google.common.base.Preconditions;
+
 import javax.persistence.*;
+
 
 @Entity
 public class Book {
@@ -37,13 +40,12 @@ public class Book {
     @Column(nullable = false)
     private String isbn;
 
+
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    public void setId(long id) { this.id = id; }
 
     public String getGenre() {
         return genre;
@@ -58,7 +60,7 @@ public class Book {
     }
 
     public void setAuthor(String author) {
-        this.author = author;
+        this.author = Preconditions.checkNotNull(author);
     }
 
     public String getImage() {
@@ -66,7 +68,7 @@ public class Book {
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.image = Preconditions.checkNotNull(image);
     }
 
     public String getTitle() {
@@ -74,7 +76,7 @@ public class Book {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = Preconditions.checkNotNull(title);
     }
 
     public String getSubtitle() {
@@ -82,7 +84,7 @@ public class Book {
     }
 
     public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
+        this.subtitle = Preconditions.checkNotNull(subtitle);
     }
 
     public String getPublisher() {
@@ -90,7 +92,7 @@ public class Book {
     }
 
     public void setPublisher(String publisher) {
-        this.publisher = publisher;
+        this.publisher = Preconditions.checkNotNull(publisher);
     }
 
     public String getYear() {
@@ -98,7 +100,7 @@ public class Book {
     }
 
     public void setYear(String year) {
-        this.year = year;
+        this.year = Preconditions.checkNotNull(year);
     }
 
     public Integer getPages() {
@@ -106,7 +108,7 @@ public class Book {
     }
 
     public void setPages(Integer pages) {
-        this.pages = pages;
+        this.pages = Preconditions.checkNotNull(pages);
     }
 
     public String getIsbn() {
@@ -114,7 +116,7 @@ public class Book {
     }
 
     public void setIsbn(String isbn) {
-        this.isbn = isbn;
+        this.isbn = Preconditions.checkNotNull(isbn);
     }
 
     @Override
