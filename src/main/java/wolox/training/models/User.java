@@ -17,7 +17,7 @@ public class User {
     @Column(nullable = false)
     private LocalDate birthdate;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Collection<Book> books;
 
     public long getId() {
