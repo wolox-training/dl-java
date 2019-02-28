@@ -1,6 +1,9 @@
 package wolox.training.models;
 
 import com.google.common.base.Preconditions;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import javax.persistence.*;
 
@@ -9,6 +12,23 @@ import javax.persistence.*;
 public class Book {
 
     public Book() {}
+
+    public Book(String externalJson, String isbn) throws JSONException {
+        JSONObject bookJson = new JSONObject(externalJson);
+        JSONArray authorJson = bookJson.getJSONArray("authors");
+        JSONArray publisherJson = bookJson.getJSONArray("publishers");
+        JSONArray genresJson =  bookJson.has("subjects") ? bookJson.getJSONArray("subjects"): null;
+        System.out.println(genresJson);
+        this.isbn = isbn;
+        this.title = bookJson.getString("title");
+        this.subtitle = bookJson.has("subtitle") ? bookJson.getString("subtitle"): "";
+        this.year =  bookJson.has("publish_date")? bookJson.getString("publish_date"): "";
+        this.pages = Integer.parseInt(bookJson.getString("number_of_pages"));
+        this.author = authorJson.getJSONObject(0).getString("name");
+        this.publisher = publisherJson.getJSONObject(0).getString("name");
+        this.image = bookJson.getJSONObject("cover").getString("medium");
+        this.genre = genresJson == null ? null: genresJson.getJSONObject(0).getString("name");
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
