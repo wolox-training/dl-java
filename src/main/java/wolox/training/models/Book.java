@@ -18,7 +18,6 @@ public class Book {
         JSONArray authorJson = bookJson.getJSONArray("authors");
         JSONArray publisherJson = bookJson.getJSONArray("publishers");
         JSONArray genresJson =  bookJson.has("subjects") ? bookJson.getJSONArray("subjects"): null;
-        System.out.println(genresJson);
         this.isbn = isbn;
         this.title = bookJson.getString("title");
         this.subtitle = bookJson.has("subtitle") ? bookJson.getString("subtitle"): "";
