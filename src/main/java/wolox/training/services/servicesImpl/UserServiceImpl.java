@@ -7,6 +7,7 @@ import wolox.training.exceptions.BookAlreadyOwnedException;
 import wolox.training.exceptions.BookNotFoundException;
 import wolox.training.models.Book;
 import wolox.training.models.User;
+import wolox.training.repositories.BookRepository;
 import wolox.training.repositories.UserRepository;
 import wolox.training.services.OpenLibraryService;
 import wolox.training.services.UserService;
@@ -21,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     OpenLibraryService openLibraryService;
+
+    @Autowired
+    BookRepository bookRepository;
 
     public User addBook(Long userId, Book bookToAdd) throws JSONException {
         Optional<User> optional = userRepository.findById(userId);
@@ -38,4 +42,13 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    public User addBookById(User user, Long bookId){
+        Optional<Book> book = bookRepository.findById(bookId);
+        if(book.isPresent()){
+            user.getBooks().add(book.get());
+            userRepository.save(user);
+        }
+
+        throw new BookNotFoundException();
+    }
 }

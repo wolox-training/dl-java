@@ -8,4 +8,5 @@ import wolox.training.models.User;
 @Service
 public interface UserService {
     public abstract User addBook(Long userId, Book bookToAdd) throws JSONException;
+    public abstract User addBookById(User user, Long bookId);
 }

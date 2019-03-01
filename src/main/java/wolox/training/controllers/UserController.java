@@ -11,6 +11,8 @@ import wolox.training.models.User;
 import wolox.training.repositories.UserRepository;
 import wolox.training.services.UserService;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -20,6 +22,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
 
     @GetMapping("/{username}")
     public User findByUsername(@PathVariable String username) throws UserNotFoundException {
@@ -46,6 +49,16 @@ public class UserController {
     public User addBookToUser (@PathVariable Long id, @RequestBody Book bookToAdd) throws JSONException {
         userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         return userService.addBook(id, bookToAdd);
+    }
+
+    @PutMapping("/{userId}/books/{bookId}")
+    public User addBookById(@PathVariable Long userId, @PathVariable Long bookId) {
+         Optional<User> user = userRepository.findById(userId);
+         if(user.isPresent()){
+             return userService.addBookById(user.get(), bookId);
+         }
+
+         throw new UserNotFoundException();
     }
 
     @DeleteMapping("/{id}")
