@@ -43,12 +43,8 @@ public class UserServiceImpl implements UserService {
     }
 
     public User addBookById(User user, Long bookId){
-        Optional<Book> book = bookRepository.findById(bookId);
-        if(book.isPresent()){
-            user.getBooks().add(book.get());
-            userRepository.save(user);
-        }
-
-        throw new BookNotFoundException();
+        Book book = bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
+            user.getBooks().add(book);
+            return userRepository.save(user);
     }
 }
