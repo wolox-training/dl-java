@@ -4,7 +4,7 @@ import com.google.common.base.Preconditions;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Collection;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -20,7 +20,7 @@ public class User {
     private LocalDate birthdate;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    private Collection<Book> books;
+    private Set<Book> books;
 
     public long getId() {
         return id;
@@ -47,11 +47,11 @@ public class User {
         this.birthdate = Preconditions.checkNotNull(birthdate);
     }
 
-    public Collection<Book> getBooks() {
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(Collection<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
     }
 
@@ -62,4 +62,5 @@ public class User {
     public boolean deleteBook(long bookToDeleteId){
         return this.books.removeIf(book -> book.getId() == bookToDeleteId);
     }
+
 }

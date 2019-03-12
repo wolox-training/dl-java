@@ -1,11 +1,17 @@
 package wolox.training.controllers;
 
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import wolox.training.exceptions.UserMismatchException;
 import wolox.training.exceptions.UserNotFoundException;
+import wolox.training.models.Book;
 import wolox.training.models.User;
 import wolox.training.repositories.UserRepository;
+import wolox.training.services.UserService;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
@@ -13,6 +19,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
 
 
     @GetMapping("/{username}")
@@ -31,8 +40,21 @@ public class UserController {
         if(user.getId() == id) {
             userRepository.findById(id).orElseThrow(UserNotFoundException::new);
             return userRepository.save(user);
+        }else {
+            throw new UserMismatchException();
         }
-        return null;  // TODO: error handling
+    }
+
+    @PutMapping("/{id}/books")
+    public User addBookToUser (@PathVariable Long id, @RequestBody Book bookToAdd) throws JSONException {
+        userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        return userService.addBook(id, bookToAdd);
+    }
+
+    @PutMapping("/{userId}/books/{bookId}")
+    public User addBookById(@PathVariable Long userId, @PathVariable Long bookId) {
+         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+         return userService.addBookById(user, bookId);
     }
 
     @DeleteMapping("/{id}")
