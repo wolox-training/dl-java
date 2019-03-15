@@ -47,7 +47,6 @@ public class UserControllerTest {
     private Set<Book> testBooks =  new HashSet<>();
     private Book testBook;
 
-
     @Before
     public void init() throws JSONException {
         testBook = new Book(TestConstants.EXTERNAL_BOOK_JSON, TestConstants.BOOK_ISBN);
