@@ -53,12 +53,8 @@ public class UserController {
 
     @PutMapping("/{userId}/books/{bookId}")
     public User addBookById(@PathVariable Long userId, @PathVariable Long bookId) {
-         Optional<User> user = userRepository.findById(userId);
-         if(user.isPresent()){
-             return userService.addBookById(user.get(), bookId);
-         }
-
-         throw new UserNotFoundException();
+         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+         return userService.addBookById(user, bookId);
     }
 
     @DeleteMapping("/{id}")
